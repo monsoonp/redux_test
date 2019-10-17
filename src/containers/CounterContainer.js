@@ -16,7 +16,6 @@ class CounterContainer  extends Component{
         const { CounterActions } = this.props;
         CounterActions.decrement();
     }
-
     render() {
         const { handleIncrement, handleDecrement } = this;
         const { number } = this.props;
