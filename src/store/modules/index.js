@@ -2,7 +2,9 @@
 // 여려거ㅐ의 리듀서가 있을때 conbineReducers를 사용하여 하나의 리듀러로 합칠 수 있다 - 루트 리듀서
 import { combineReducers } from 'redux';
 import counter from './counter';
+import todo from './todo';
 
 export default combineReducers({
-    counter
+    counter,
+    todo
 });
