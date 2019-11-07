@@ -1,10 +1,10 @@
-import { createAction, handleActions } from 'redux-actions';
-import {Map, List} from 'immutable';
+import { createAction, handleActions } from "redux-actions";
+import { Map, List } from "immutable";
 
-const CHANGE_INPUT = 'todo/CHANGE_INPUT';
-const INSERT = 'todo/INSERT';
-const TOGGLE = 'todo/TOGGLE';
-const REMOVE = 'todo/REMOVE';
+const CHANGE_INPUT = "todo/CHANGE_INPUT";
+const INSERT = "todo/INSERT";
+const TOGGLE = "todo/TOGGLE";
+const REMOVE = "todo/REMOVE";
 
 //export const changeInput = createAction(CHANGE_INPUT);
 export const changeInput = createAction(CHANGE_INPUT, value => value);
@@ -27,26 +27,29 @@ sample(1)
 let id = 0; //todo 아이템에 들어갈 고유값
 
 const initialState = Map({
-    input: '',
-    todos: List()
+  input: "",
+  todos: List()
 });
 
-export default handleActions({
+export default handleActions(
+  {
     // 한줄짜리 코드로 반환 할 수 있는 경우 다음과 같이 블록{}을 생략 가능
-    [CHANGE_INPUT]: (state, action) => state.set('input', action.payload),
-    [INSERT]: (state,{payload:text}) => {
-        // 위 코드는 action 객체를 비구조화 할당하고, payload 값을 text라고 부르겠다는 의미
-        const item = Map({id: id++, checked: false, text}); // 하나 추가 할떼마다 id 값을 증가시킴
-        return state.update('todos', todos => todos. push(item));
+    [CHANGE_INPUT]: (state, action) => state.set("input", action.payload),
+    [INSERT]: (state, { payload: text }) => {
+      // 위 코드는 action 객체를 비구조화 할당하고, payload 값을 text라고 부르겠다는 의미
+      const item = Map({ id: id++, checked: false, text }); // 하나 추가 할떼마다 id 값을 증가시킴
+      return state.update("todos", todos => todos.push(item));
     },
-    [TOGGLE]: (state, {payload: id }) => {
-        // id 값을 가진 index 를 찾아서 checked 값을 반전
-        const index = state.get('todos').findIndex(item => item.get('id') === id);
-        return state.updateIn(['todos', index, 'checked' ], checked => !checked);
+    [TOGGLE]: (state, { payload: id }) => {
+      // id 값을 가진 index 를 찾아서 checked 값을 반전
+      const index = state.get("todos").findIndex(item => item.get("id") === id);
+      return state.updateIn(["todos", index, "checked"], checked => !checked);
     },
-    [REMOVE]: (state, {payload: id}) => {
-        //id 값을 가진 index를 찾아서 지움
-        const index = state.get('todos').findIndex(item => item.get('id') ===id);
-        return state.deleteIn(['todos', index]);
+    [REMOVE]: (state, { payload: id }) => {
+      //id 값을 가진 index를 찾아서 지움
+      const index = state.get("todos").findIndex(item => item.get("id") === id);
+      return state.deleteIn(["todos", index]);
     }
-}, initialState);
+  },
+  initialState
+);
